@@ -23,7 +23,7 @@ def get_all_member_messages(guild, members, messages):
     #GET_ALL_MESSAGES
     for message in messages:
         if message.created_at > week_ago and len(message.attachments) > 0:
-            member_messages[message.author.name].append(message)
+            member_messages[message.author].append(message)
 
     return member_messages
 
@@ -53,15 +53,23 @@ def shame_and_glory(bot_channel, members_dict):
         if member[1] == 0:
             shame_list.append(member)
 
-    print(top3)
-    print(shame_list)
+    #print(top3[0])
+    #Get rid of King Meme Ladicus - He cannot have shame for he is a KING
+    #Also there's probably a better way to do this
+    for member in shame_list:
+        if str(member[0]) == "King Meme Ladicus the 69th#2451":
+            shame_list.remove(member)
 
-    glory_message1 = "1. " + top3[0][0].nick or top3[0][0].name)
-    glory_message2 = "2. " + top3[1][0].nick or top3[1][0].name)
-    glory_message3 = "3. " + top3[2][0].nick or top3[2][0].name)
+    glory_message1 = "1. " + (top3[0][0].nick or top3[0][0].name)
+    glory_message2 = "2. " + (top3[1][0].nick or top3[1][0].name)
+    glory_message3 = "3. " + (top3[2][0].nick or top3[2][0].name)
 
     for member in shame_list:
-        shame_message += member[0] + "\n "
+        try:
+            shame_message += member[0].nick + "\n "
+        except:
+            shame_message += str(member[0]) + "\n "
+            
 
     shame_message += "These FOOLS have not received a SINGLE meme like and should be SHAMED. DO BETTER THIS WEEK.\n"
 
