@@ -47,16 +47,31 @@ def shame_and_glory(bot_channel, members_dict):
 
     top3 = members_dict[0:3]
     shame_list = []
+    shame_message = "~~ATTENTION!!!~~\n"
 
     for member in members_dict:
         if member[1] == 0:
             shame_list.append(member)
 
-    print(top3[0])
+    #print(top3[0])
+    #Get rid of King Meme Ladicus - He cannot have shame for he is a KING
+    #Also there's probably a better way to do this
+    for member in shame_list:
+        if str(member[0]) == "King Meme Ladicus the 69th#2451":
+            shame_list.remove(member)
 
     glory_message1 = "1. " + (top3[0][0].nick or top3[0][0].name)
     glory_message2 = "2. " + (top3[1][0].nick or top3[1][0].name)
     glory_message3 = "3. " + (top3[2][0].nick or top3[2][0].name)
 
-    return glory_message1, glory_message2, glory_message3, 'Test shame'
+    for member in shame_list:
+        try:
+            shame_message += member[0].nick + "\n "
+        except:
+            shame_message += str(member[0]) + "\n "
+            
+
+    shame_message += "These FOOLS have not received a SINGLE meme like and should be SHAMED. DO BETTER THIS WEEK.\n"
+
+    return glory_message1, glory_message2, glory_message3, shame_message
 

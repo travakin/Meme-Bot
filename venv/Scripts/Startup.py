@@ -48,7 +48,8 @@ async def on_ready():
     print(glory_msg1)
     print(glory_msg2)
     print(glory_msg3)
-
+    
+    await bot_channel.send(shame_msg)
     await bot_channel.send(GLORY_HEADER)
     await bot_channel.send(GLORY_TITLE + " " + datetime.datetime.today().strftime('(%d %b, %Y)'))
     await bot_channel.send(glory_msg1)
