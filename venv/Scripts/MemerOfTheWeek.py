@@ -23,7 +23,7 @@ def get_all_member_messages(guild, members, messages):
     #GET_ALL_MESSAGES
     for message in messages:
         if message.created_at > week_ago and len(message.attachments) > 0:
-            member_messages[message.author.name].append(message)
+            member_messages[message.author].append(message)
 
     return member_messages
 
@@ -52,12 +52,11 @@ def shame_and_glory(bot_channel, members_dict):
         if member[1] == 0:
             shame_list.append(member)
 
-    print(top3)
-    print(shame_list)
+    print(top3[0])
 
-    glory_message1 = "1. " + top3[0][0]
-    glory_message2 = "2. " + top3[1][0]
-    glory_message3 = "3. " + top3[2][0]
+    glory_message1 = "1. " + (top3[0][0].nick or top3[0][0].name)
+    glory_message2 = "2. " + (top3[1][0].nick or top3[1][0].name)
+    glory_message3 = "3. " + (top3[2][0].nick or top3[2][0].name)
 
     return glory_message1, glory_message2, glory_message3, 'Test shame'
 

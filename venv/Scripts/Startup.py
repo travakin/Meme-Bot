@@ -26,7 +26,7 @@ async def on_ready():
             bot_channel = channel
             break
 
-    members = [member.name for member in guild.members]
+    members = [member for member in guild.members]
     members_dict = {}
 
     for member in members:
@@ -45,7 +45,9 @@ async def on_ready():
 
     glory_msg1, glory_msg2, glory_msg3, shame_msg = shame_and_glory(bot_channel, members_dict)
 
-    print(datetime.datetime.today().strftime('(%d %b, %Y)'))
+    print(glory_msg1)
+    print(glory_msg2)
+    print(glory_msg3)
 
     await bot_channel.send(GLORY_HEADER)
     await bot_channel.send(GLORY_TITLE + " " + datetime.datetime.today().strftime('(%d %b, %Y)'))
@@ -53,8 +55,6 @@ async def on_ready():
     await bot_channel.send(glory_msg2)
     await bot_channel.send(glory_msg3)
     await bot_channel.send(GLORY_FOOTER)
-
-
 
 client.run(TOKEN)
 
