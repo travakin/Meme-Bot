@@ -56,9 +56,9 @@ def shame_and_glory(bot_channel, members_dict):
     print(top3)
     print(shame_list)
 
-    glory_message1 = "1. " + top3[0][0]
-    glory_message2 = "2. " + top3[1][0]
-    glory_message3 = "3. " + top3[2][0]
+    glory_message1 = "1. " + top3[0][0].nick or top3[0][0].name)
+    glory_message2 = "2. " + top3[1][0].nick or top3[0][0].name)
+    glory_message3 = "3. " + top3[2][0].nick or top3[0][0].name)
 
     for member in shame_list:
         shame_message += member[0] + "\n "
