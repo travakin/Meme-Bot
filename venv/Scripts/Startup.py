@@ -11,6 +11,7 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 CHANNEL = os.getenv('MEMER_CHANNEL')
+SEND_RESULTS = os.getenv('SEND_RESULTS')
 GLORY_HEADER = os.getenv('GLORY_HEADER')
 GLORY_TITLE = os.getenv('GLORY_TITLE')
 GLORY_FOOTER = os.getenv('GLORY_FOOTER')
@@ -19,14 +20,12 @@ client = CustomClient()
 
 @client.event
 async def on_ready():
-    guild = discord.utils.get(client.guilds, name=GUILD)
 
-    for channel in guild.text_channels:
-        if(channel.name == CHANNEL):
-            bot_channel = channel
-            break
+    guild = client.get_guild(int(GUILD))
+    bot_channel = client.get_channel(int(CHANNEL))
 
     members = [member for member in guild.members]
+
     members_dict = {}
 
     for member in members:
@@ -48,14 +47,16 @@ async def on_ready():
     print(glory_msg1)
     print(glory_msg2)
     print(glory_msg3)
-    
-    await bot_channel.send(shame_msg)
-    await bot_channel.send(GLORY_HEADER)
-    await bot_channel.send(GLORY_TITLE + " " + datetime.datetime.today().strftime('(%d %b, %Y)'))
-    await bot_channel.send(glory_msg1)
-    await bot_channel.send(glory_msg2)
-    await bot_channel.send(glory_msg3)
-    await bot_channel.send(GLORY_FOOTER)
+
+    if(SEND_RESULTS == "True"):
+        print("Sending results")
+        await bot_channel.send(shame_msg)
+        await bot_channel.send(GLORY_HEADER)
+        await bot_channel.send(GLORY_TITLE + " " + datetime.datetime.today().strftime('(%d %b, %Y)'))
+        await bot_channel.send(glory_msg1)
+        await bot_channel.send(glory_msg2)
+        await bot_channel.send(glory_msg3)
+        await bot_channel.send(GLORY_FOOTER)
 
 client.run(TOKEN)
 
